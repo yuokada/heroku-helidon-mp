@@ -203,6 +203,18 @@
                 <artifactId>jersey-media-json-binding</artifactId>
                 <version>2.26</version>
             </dependency>
+
+            <dependency>
+                <groupId>io.helidon.config</groupId>
+                <artifactId>helidon-config</artifactId>
+                <version>0.10.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.helidon.config</groupId>
+                <artifactId>helidon-config-yaml</artifactId>
+                <version>0.10.0</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -236,5 +248,17 @@
             <artifactId>junit-jupiter-engine</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>io.helidon.config</groupId>
+            <artifactId>helidon-config</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.helidon.config</groupId>
+            <artifactId>helidon-config-yaml</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 </project>

@@ -16,20 +16,27 @@
 
 package io.github.yuokada.samples.helidon.mp;
 
-import java.io.IOException;
-import java.util.logging.LogManager;
+import static io.helidon.config.ConfigSources.environmentVariables;
+import static io.helidon.config.ConfigSources.file;
 
+import io.helidon.config.Config;
 import io.helidon.microprofile.server.Server;
+import io.helidon.webserver.ServerConfiguration;
+import java.io.IOException;
+import java.util.Optional;
+import java.util.logging.LogManager;
 
 /**
  * Main method simulating trigger of main method of the server.
  */
 public final class Main {
 
-    private Main() { }
+    private Main() {
+    }
 
     /**
      * Application main entry point.
+     *
      * @param args command line arguments
      * @throws IOException if there are problems reading logging properties
      */
@@ -39,6 +46,7 @@ public final class Main {
 
     /**
      * Start the server.
+     *
      * @return the created {@link Server} instance
      * @throws IOException if there are problems reading logging properties
      */
@@ -46,12 +54,35 @@ public final class Main {
 
         // load logging configuration
         LogManager.getLogManager().readConfiguration(
-                Main.class.getResourceAsStream("/logging.properties"));
+            Main.class.getResourceAsStream("/logging.properties"));
+
+        Config config = readConfig();
+        Optional<Integer> port = config.get("PORT").asOptional(Integer.class);
+
+        ServerConfiguration serverConfiguration = ServerConfiguration.builder()
+            .port(port.get()).build();
 
         // Server will automatically pick up configuration from
         // microprofile-config.properties
-        Server server = Server.create();
-        server.start();
+        Server server = Server.builder().port(port.get()).build().start();
         return server;
+//        Server server = Server.create();
+//        server.start();
+//        return server;
+    }
+
+    private static Config readConfig() {
+        /*
+            public static void main(String[] args) {
+        Optional<String> optionalPort = Optional.ofNullable(System.getenv("PORT"));
+        optionalPort.ifPresent(p -> {
+            int port = Integer.parseInt(p);
+            setPort(port);
+        });
+         */
+        return Config.builder().sources(
+            environmentVariables(),
+            file("conf/dev.yaml").optional()
+        ).build();
     }
 }
