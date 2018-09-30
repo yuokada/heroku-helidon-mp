@@ -111,6 +111,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -143,6 +144,23 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>com.heroku.sdk</groupId>
+                <artifactId>heroku-maven-plugin</artifactId>
+                <version>0.4.4</version>
+                <configuration>
+                    <jdkVersion>1.8</jdkVersion>
+                    <!-- Use your own application name -->
+                    <appName>helidon-mp</appName>
+                    <processTypes>
+                        <!-- Tell Heroku how to launch your application -->
+                        <!-- You might have to remove the ./ in front   -->
+                        <web>java -jar ./target/helidon-mp.jar</web>
+                    </processTypes>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
