@@ -17,7 +17,6 @@
 package io.github.yuokada.samples.helidon.mp;
 
 import static io.helidon.config.ConfigSources.environmentVariables;
-import static io.helidon.config.ConfigSources.file;
 
 import io.helidon.config.Config;
 import io.helidon.microprofile.server.Server;
@@ -64,25 +63,17 @@ public final class Main {
 
         // Server will automatically pick up configuration from
         // microprofile-config.properties
-        Server server = Server.builder().port(port.get()).build().start();
-        return server;
 //        Server server = Server.create();
-//        server.start();
-//        return server;
+        Server server = Server.builder()
+            .port(port.get())
+            .build();
+        server.start();
+        return server;
     }
 
     private static Config readConfig() {
-        /*
-            public static void main(String[] args) {
-        Optional<String> optionalPort = Optional.ofNullable(System.getenv("PORT"));
-        optionalPort.ifPresent(p -> {
-            int port = Integer.parseInt(p);
-            setPort(port);
-        });
-         */
         return Config.builder().sources(
-            environmentVariables(),
-            file("conf/dev.yaml").optional()
+            environmentVariables()
         ).build();
     }
 }
