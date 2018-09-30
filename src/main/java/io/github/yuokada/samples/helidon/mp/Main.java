@@ -22,7 +22,6 @@ import io.helidon.config.Config;
 import io.helidon.microprofile.server.Server;
 import io.helidon.webserver.ServerConfiguration;
 import java.io.IOException;
-import java.util.Optional;
 import java.util.logging.LogManager;
 
 /**
@@ -56,16 +55,16 @@ public final class Main {
             Main.class.getResourceAsStream("/logging.properties"));
 
         Config config = readConfig();
-        Optional<Integer> port = config.get("PORT").asOptional(Integer.class);
+        int port = config.get("PORT").asInt(8080);
 
         ServerConfiguration serverConfiguration = ServerConfiguration.builder()
-            .port(port.get()).build();
+            .port(port).build();
 
         // Server will automatically pick up configuration from
         // microprofile-config.properties
 //        Server server = Server.create();
         Server server = Server.builder()
-            .port(port.get())
+            .port(port)
             .build();
         server.start();
         return server;
