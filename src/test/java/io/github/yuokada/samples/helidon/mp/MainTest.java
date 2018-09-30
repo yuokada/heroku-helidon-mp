@@ -16,6 +16,7 @@
 
 package io.github.yuokada.samples.helidon.mp;
 
+import io.helidon.microprofile.server.Server;
 import javax.enterprise.inject.se.SeContainer;
 import javax.enterprise.inject.spi.CDI;
 import javax.json.JsonObject;
@@ -24,14 +25,13 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import io.helidon.microprofile.server.Server;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 class MainTest {
+
     private static Server server;
 
     @BeforeAll
@@ -45,31 +45,31 @@ class MainTest {
         Client client = ClientBuilder.newClient();
 
         JsonObject jsonObject = client
-                .target(getConnectionString("/greet"))
-                .request()
-                .get(JsonObject.class);
+            .target(getConnectionString("/greet"))
+            .request()
+            .get(JsonObject.class);
         Assertions.assertEquals("Hello World!", jsonObject.getString("message"),
-                "default message");
+            "default message");
 
         jsonObject = client
-                .target(getConnectionString("/greet/Joe"))
-                .request()
-                .get(JsonObject.class);
+            .target(getConnectionString("/greet/Joe"))
+            .request()
+            .get(JsonObject.class);
         Assertions.assertEquals("Hello Joe!", jsonObject.getString("message"),
-                "hello Joe message");
+            "hello Joe message");
 
         Response r = client
-                .target(getConnectionString("/greet/greeting/Hola"))
-                .request()
-                .put(Entity.entity("", MediaType.APPLICATION_JSON));
+            .target(getConnectionString("/greet/greeting/Hola"))
+            .request()
+            .put(Entity.entity("", MediaType.APPLICATION_JSON));
         Assertions.assertEquals(200, r.getStatus(), "PUT status code");
 
         jsonObject = client
-                .target(getConnectionString("/greet/Jose"))
-                .request()
-                .get(JsonObject.class);
+            .target(getConnectionString("/greet/Jose"))
+            .request()
+            .get(JsonObject.class);
         Assertions.assertEquals("Hola Jose!", jsonObject.getString("message"),
-                "hola Jose message");
+            "hola Jose message");
     }
 
     @AfterAll
