@@ -20,8 +20,14 @@ import static io.helidon.config.ConfigSources.environmentVariables;
 
 import io.helidon.config.Config;
 import io.helidon.microprofile.server.Server;
+import io.helidon.security.Security;
+import io.helidon.security.SecurityContext;
+import io.helidon.security.SecurityEnvironment;
+import io.helidon.security.provider.httpauth.HttpBasicAuthProvider;
 import java.io.IOException;
+import java.util.UUID;
 import java.util.logging.LogManager;
+import org.glassfish.jersey.server.ResourceConfig;
 
 /**
  * Main method simulating trigger of main method of the server.
@@ -56,9 +62,37 @@ public final class Main {
         Config config = readConfig();
         int port = config.get("PORT").asInt(8080);
 
+        // Add security Provider
+        Security security = Security.builder()
+            .config(config)
+            .addProvider(HttpBasicAuthProvider.builder().build(), "foo")
+            .build();
+        // create a security context
+        SecurityContext context = security.contextBuilder(UUID.randomUUID().toString())
+            .env(SecurityEnvironment.builder()
+                .method("get")
+                .path("/test")
+                .transport("http")
+                .header("Authorization", "Bearer abcdefgh")
+                .build())
+            .build();
+
+        SecurityEnvironment securityEnvironment = SecurityEnvironment.builder()
+            .method("GET")
+            .path("/greet")
+            .transport("http")
+            .build();
+
+        ResourceConfig resourceConfig = new ResourceConfig()
+            // register JAX-RS resource
+            .register(GreetResource.class)
+            // integrate security
+            .register(new io.helidon.security.jersey.SecurityFeature(security));
+
         // Server will automatically pick up configuration from
         // microprofile-config.properties
         Server server = Server.builder()
+            .resourceConfig(resourceConfig)
             .port(port)
             .build();
         server.start();

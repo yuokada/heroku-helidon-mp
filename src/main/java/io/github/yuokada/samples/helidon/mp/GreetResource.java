@@ -39,6 +39,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
  *
  * The message is returned as a JSON object.
  */
+
 @Path("/greet")
 @RequestScoped
 public class GreetResource {

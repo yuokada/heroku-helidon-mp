@@ -215,6 +215,42 @@
                 <version>0.10.0</version>
             </dependency>
 
+            <!-- security -->
+            <dependency>
+                <groupId>io.helidon.security</groupId>
+                <artifactId>helidon-security</artifactId>
+                <version>0.10.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.helidon.security</groupId>
+                <artifactId>helidon-security-tools-config</artifactId>
+                <version>0.10.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.helidon.security</groupId>
+                <artifactId>helidon-security-provider-http-auth</artifactId>
+                <version>0.10.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.helidon.security</groupId>
+                <artifactId>helidon-security-provider-abac</artifactId>
+                <version>0.10.0</version>
+            </dependency>
+            <dependency>
+              <groupId>io.helidon.security</groupId>
+              <artifactId>helidon-security-integration-annotations</artifactId>
+              <version>0.10.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.helidon.security</groupId>
+                <artifactId>helidon-security-integration-webserver</artifactId>
+                <version>0.10.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.helidon.security</groupId>
+                <artifactId>helidon-security-integration-jersey</artifactId>
+                <version>0.10.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -260,5 +296,41 @@
             <scope>compile</scope>
         </dependency>
 
+        <!-- security -->
+        <dependency>
+            <groupId>io.helidon.security</groupId>
+            <artifactId>helidon-security</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.helidon.security</groupId>
+            <artifactId>helidon-security-tools-config</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.helidon.security</groupId>
+            <artifactId>helidon-security-provider-http-auth</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.helidon.security</groupId>
+            <artifactId>helidon-security-provider-abac</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+          <groupId>io.helidon.security</groupId>
+          <artifactId>helidon-security-integration-annotations</artifactId>
+          <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.helidon.security</groupId>
+            <artifactId>helidon-security-integration-webserver</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.helidon.security</groupId>
+            <artifactId>helidon-security-integration-jersey</artifactId>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>
